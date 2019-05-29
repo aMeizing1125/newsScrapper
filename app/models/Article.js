@@ -3,7 +3,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 // BOILDER PLATE - END
 
-
 var ArticleSchema = new Schema({
   title: {
     type: String,

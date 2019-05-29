@@ -1,0 +1,47 @@
+
+
+/* colors */
+/* blue rgb(18, 100, 232) */
+/* orange rgb(255, 118, 28) */
+
+/* Global */
+body {
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+
+}
+/* End of Global */
+
+/* Nav Area */
+.nav {
+  /* can't get background image to show */
+  background-image: url("../img/bannerPaper.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
+  width: 90%;
+  text-align:center;
+}
+
+li {
+  list-style-type: none;
+/* makes it horizontal nav */
+  display: inline;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+/* End of Nav Area */
+
+.article{
+  display: flex;
+  flex-direction: column;
+  margin: 40px 30px;
+}
