@@ -13,14 +13,14 @@ function renderData(articles) {
     var title = $('<div>')
       .addClass('articleTitle')
       .text(thisArticle.title);
+    var img = $('<img>')
+      .addClass('articleImg')
+      .attr("src", thisArticle.img);
     var link = $('<a>')
       .addClass('articleLink')
       .text("Read Full Story")
       .attr("href", thisArticle.link);
     // .attr("_target"); //if you want it to open external instead of within the page. 
-    var img = $('<img>')
-      .addClass('articleImg')
-      .attr("src", thisArticle.img);
     var button = $('<button>')
       .addClass('addComment')
       .attr("articleID", thisArticle._id)
@@ -31,9 +31,9 @@ function renderData(articles) {
       .attr("articleID", thisArticle._id)
       .addClass("commentDiv");
     var commentForm = $('<form>')
-    .attr("articleID", thisArticle._id);
+      .attr("articleID", thisArticle._id);
     var commentInput = $('<input>')
-    .addClass('commentInput');
+      .addClass('commentInput');
     var submitButton = $('<button>')
       .addClass("submitComment")
       .text("Submit");
@@ -42,7 +42,7 @@ function renderData(articles) {
     commentDiv.append(commentForm);
     commentDiv.hide();
 
-    article.append(title, link, img, button, commentDiv);
+    article.append(title, img, link, button, commentDiv);
     $('.articleArea').append(article);
   })
   renderForm();
@@ -70,6 +70,6 @@ function addComment() {
     //$.post //sends to the backend
     //update 
     //establish a relationship between the article and comments one article to many comments
-    
+
   })
 }
