@@ -1,53 +1,44 @@
 // console.log("script link");
 
-
-$.getJSON("/api/all", function (data) {
-  console.log(data);
-  renderData(data);
-})
+function displayAll() {
+  $.getJSON("/api/all", function (data) {
+    // console.log(data);
+    renderData(data);
+  })
+}
+ 
+displayAll();
 
 function renderData(articles) {
   // console.log(articles)
+  $('.articleArea').empty();
+  var html = "";
   articles.forEach(function (thisArticle) {
-    var article = $('<div>').addClass('article');
-    var imgArea = $('<div>').addClass('imgArea');
-    var commentsArea = $('<div>').addClass('commentsArea');
-    var title = $('<div>')
-      .addClass('articleTitle')
-      .text(thisArticle.title);
-    var img = $('<img>')
-      .addClass('articleImg')
-      .attr("src", thisArticle.img);
-    var link = $('<a>')
-      .addClass('articleLink')
-      .text("Read Full Story")
-      .attr("href", thisArticle.link);
-    // .attr("_target"); //if you want it to open external instead of within the page. 
-    var button = $('<button>')
-      .addClass('addComment')
-      .attr("articleID", thisArticle._id)
-      .text("Comment");
+    html += `<div class="article">
+    <div class="imgArea">
+      <div class="articleTitle">
+        ${thisArticle.title}
+      </div>
+      <img class="articleImg" src=${thisArticle.img}>
+    </div>
+    <div class="commentsArea">
+      <a class="articleLink" href=${thisArticle.link} target="_blank">Read Full Story</a>`
 
-    // Comment Div
-    var commentDiv = $('<div>')
-      .attr("articleID", thisArticle._id)
-      .addClass("commentDiv");
-    var commentForm = $('<form>')
-      .attr("articleID", thisArticle._id);
-    var commentInput = $('<input>')
-      .addClass('commentInput');
-    var submitButton = $('<button>')
-      .addClass("submitComment")
-      .text("Submit");
+    thisArticle.comments.forEach((comment) => {
+      html += `<div>${comment.body}</div>`
+    })
 
-    commentForm.append(commentInput, submitButton);
-    commentDiv.append(commentForm);
-    commentDiv.hide();
-    imgArea.append(title, img);
-    commentsArea.append(link, button, commentDiv);
-    article.append(imgArea,  commentsArea);    
-    $('.articleArea').append(article);
+    html += `<button class="addComment" articleid=${thisArticle._id}>Add Comment</button>
+      <div articleid=${thisArticle._id} class="commentDiv" style="display: none;">
+        <form articleid=${thisArticle._id}>
+          <input class="commentInput">
+          <button class="submitComment">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>`
   })
+  $('.articleArea').append(html)
   renderForm();
 }
 
@@ -71,8 +62,15 @@ function addComment() {
     var thisArticle = $(this).parent().attr("articleID");
     console.log(submission, thisArticle);
     //$.post //sends to the backend
+    $.post(`/api/comments/${thisArticle}`, { body: submission })
+      .then(
+        function (data) {
+          // console.log(data);
+          displayAll()
+        }
+      )
     //update 
     //establish a relationship between the article and comments one article to many comments
-
+    //update comments model to include id and string
   })
 }

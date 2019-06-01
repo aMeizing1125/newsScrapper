@@ -20,17 +20,33 @@ function insertDB() {
 }
 
 function displayAll(cb) {
-  db.Article.find({}, function(err, docs) {
-    if (err) {
-      console.log("Error in displayAll" + err)
-    }
-    cb(docs);
+  db.Article.find({}).populate("comments")
+  .then(function(articles){
+    cb(articles);
   })
 }
+
+// insert comments Tutor, Darin and Adel helped me with this portion. 
+function insertComments(comment, articleId, cb) {
+  db.Comment.create(comment) 
+    //speaks to database (back and forth)
+    .then(function(dbComment) {
+      return db.Article.findOneAndUpdate({ _id: articleId }, {$push:{comments: dbComment._id}}, {new:true})
+    })
+    // receiving the value from the database
+    .then(function(dbArticle) {
+      cb(dbArticle);
+    })
+    .catch(function(err) {
+      cb(err);
+    });   
+}
+
 
 
 module.exports = {
   insertDB: insertDB,
-  displayAll: displayAll
+  displayAll: displayAll, 
+  insertComments: insertComments
 
 }

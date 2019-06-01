@@ -6,6 +6,14 @@ function apiRoutes(app){
       res.json(docs);
     }) 
   })
+
+  app.post("/api/comments/:articleId", function(req, res) {
+    var comment = req.body;
+    var articleId = req.params.articleId
+    data.insertComments(comment, articleId, function(results){
+      res.json(results);
+    });      
+  })
 }
 
 
