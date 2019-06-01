@@ -67,6 +67,9 @@ function addComment() {
     var submission = $(this).siblings(".commentInput").val().trim();
     var thisArticle = $(this).parent().attr("articleID");
     console.log(submission, thisArticle);
-
+    //$.post //sends to the backend
+    //update 
+    //establish a relationship between the article and comments one article to many comments
+    
   })
 }

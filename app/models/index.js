@@ -2,7 +2,7 @@
 
 db = {
   Article: require("./Article"),
-  Comment: require("./Commment")
+  Comment: require("./Comment")
 }
 
 module.exports = db;
