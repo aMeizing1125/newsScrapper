@@ -10,6 +10,8 @@ function renderData(articles) {
   // console.log(articles)
   articles.forEach(function (thisArticle) {
     var article = $('<div>').addClass('article');
+    var imgArea = $('<div>').addClass('imgArea');
+    var commentsArea = $('<div>').addClass('commentsArea');
     var title = $('<div>')
       .addClass('articleTitle')
       .text(thisArticle.title);
@@ -41,8 +43,9 @@ function renderData(articles) {
     commentForm.append(commentInput, submitButton);
     commentDiv.append(commentForm);
     commentDiv.hide();
-
-    article.append(title, img, link, button, commentDiv);
+    imgArea.append(title, img);
+    commentsArea.append(link, button, commentDiv);
+    article.append(imgArea,  commentsArea);    
     $('.articleArea').append(article);
   })
   renderForm();
