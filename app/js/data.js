@@ -4,6 +4,12 @@ var db = require("../models");
 
 mongoose.connect("mongodb://localhost/scraperHomework", { useNewUrlParser: true });
 
+// this is how to connect to heroku mongodb. 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
+
+
 function insertDB() {
   scraper(function(allArticles){
     // console.log(allArticles);
