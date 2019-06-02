@@ -22,10 +22,10 @@ function renderData(articles) {
       <img class="articleImg" src=${thisArticle.img}>
     </div>
     <div class="commentsArea">
-      <a class="articleLink" href=${thisArticle.link} target="_blank">Read Full Story</a>`
+      <a class="articleLink myButton" href=${thisArticle.link} target="_blank">Read Full Story</a>`
 
     thisArticle.comments.forEach((comment) => {
-      html += `<div>${comment.body}</div>`
+      html += `<div class="thisComment">${comment.body}</div>`
     })
 
     html += `<button class="addComment" articleid=${thisArticle._id}>Add Comment</button>
